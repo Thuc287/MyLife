@@ -78,11 +78,11 @@ if (pwd1.value === pwd2.value) {
     </div>
 
     <div class="menu">
-    <a class="btn" href="home" ><i class='fas fa-house-user'style='font-size:24px'></i></a>
+    <a  class="btn" href="home" ><i class='fas fa-house-user'style='font-size:24px'></i></a>
 
 {{-- Home Main --}}
-     @if (Session::get('id') == null)
-      <button type="button" class="btn btn-group-vertical" data-bs-toggle="modal" data-bs-target="#signIn">
+
+      <button  aria-labelledby="Trang chủ" type="button" class="btn btn-group-vertical" data-bs-toggle="modal" data-bs-target="#signIn">
         <i class='fas fa-user-check' style='font-size:23px'></i>
       </button>
       <button type="button" class="btn btn-group-vertical" data-bs-toggle="modal" data-bs-target="#signUp">
@@ -90,7 +90,7 @@ if (pwd1.value === pwd2.value) {
       </button>
       <div class="modal" id="signIn">
        <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content">       
          <!-- Modal Header -->
          <div class="modal-header">
           <h4 class="modal-title">Sign In</h4>
@@ -159,9 +159,9 @@ if (pwd1.value === pwd2.value) {
            </div>
            <div class="mb-3">
             <div class="file-loading">
-            <label for="img" class="form-label">img:</label>
-            <input type="file" class="form-control" id="img"
-             placeholder="Enter img" name="img" accept="image/*" class="form-control-file" required>
+            <label for="avt" class="form-label">Avt:</label>
+            <input type="file" class="form-control" id="avt"
+             placeholder="Enter avt" name="avt" accept="image/*" class="form-control-file" required>
             </div>
            </div>
            <div class="form-check mb-3">
@@ -177,62 +177,7 @@ if (pwd1.value === pwd2.value) {
        </div>
       </div>
       {{-- Home User --}}
-     @else
-     <button type="button" class="btn btn-group-vertical" data-bs-toggle="modal" data-bs-target="#createPost">
-      <i class='fas fa-user-check' style='font-size:23px'></i>
-    </button>
-    <div class="modal" id="createPost">
-      <div class="modal-dialog">
-       <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-         <h4 class="modal-title">Sign Up</h4>
-         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
 
-        <!-- Modal body -->
-        <div class="modal-body">
-         <form method="post" action="/logUp">
-          <div class="mb-3 mt-3">
-           <label for="userId" class="form-label">User_Id:</label>
-           <input pattern="[0-9]+" minlength="6" maxlength="6" type="text" class="form-control" id="userId"
-            placeholder="Enter user_Id" name="userId" required>
-          </div>
-          <div class="mb-3 mt-3">
-           <label for="name" class="form-label">Name:</label>
-           <input type="text" class="form-control" id="name" placeholder="Enter name" name="name"
-            required>
-          </div>
-          <div class="mb-3">
-           <label for="phone" class="form-label">Phone:</label>
-           <input pattern="[0-9]+" minlength="10" maxlength="10" type="phone" class="form-control"
-            id="phone" placeholder="Enter phone" name="phone" required>
-          </div>
-          <div class="mb-3">
-           <label for="password" class="form-label">Password:</label>
-           <input pattern="[0-9]+" minlength="6" maxlength="6" type="password" class="form-control"
-            id="password" placeholder="Enter password" name="password" required>
-          </div>
-          <div class="mb-3">
-           <label for="img" class="form-label">img:</label>
-           <input type="file" class="form-control" id="img"
-            placeholder="Enter img" name="img" required>
-          </div>
-          <div class="form-check mb-3">
-           <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" name="remember"> Remember me
-           </label>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-         </form>
-        </div>
-
-       </div>
-      </div>
-     </div>
-
-      <img src="{{ Session::get('img') }}" style="height: 10px " alt='rrrrrrr'>
-     @endif
 
     </div>
    </div>

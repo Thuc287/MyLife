@@ -5,12 +5,14 @@ body{
 header{
   background-color: white;
   height: 55px;
+  margin-bottom: 3px;
 }
 .container{
   padding-top: 7px;
   display: flex;
 justify-content: space-between;
 align-items: center;
+background-color: #fff;
 }
 
 /* search */
@@ -41,4 +43,8 @@ align-items: center;
 /* menu */
 .menu{
  align-items: center;
+}
+
+
+.posts{
 }

@@ -5,32 +5,53 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use App\Models\Comment;
 
 class UserController extends Controller
 {
 
     public function home()
     {
-        $posts = DB::select("SELECT posts.'id', posts.'caption',posts.'img', posts.'user_id',users.'img', users.'username'
-         FROM posts, users where posts.'user_id'=users.'id' and posts.'status'=1 ");
-        return view('home')->with(['posts'=> $posts,'layout'=>'Layout.user']);
+        $posts = DB::table('posts')
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->where('posts.status', 0)
+            ->select('users.avt', 'users.username', 'posts.caption', 'posts.img', 'posts.date', 'posts.views')
+            ->get();
+        return view('home')->with(['posts' => $posts, 'layout' => 'Layout.user']);
     }
 
-    public function showMyHome()
+    public function MyHome()
     {
         $user_id = Session::get('id');
         $posts = DB::select("select * from posts where user_id='$user_id");
-        return view('home')->with(['posts'=> $posts,'layout'=>'Layout.user']);
+        return view('home')->with(['posts' => $posts, 'layout' => 'Layout.user']);
     }
-    public function showUserHome(Request $request)
+    public function UserHome(Request $request)
     {
         $username = $request->username;
         $users = DB::select("select * from users where username='$username'");
         $user = head($users);
         $posts = DB::select("SELECT * from posts where user_id='$user->id'");
-        return view('home')->with(['posts'=> $posts,'layout'=>'Layout.user']);
+        return view('home')->with(['posts' => $posts, 'layout' => 'Layout.user']);
     }
-
+    public function createComment(Request $request)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $comment = new Comment();
+        $comment->user_id = Session::get('id');
+        $comment->post_id = Session::get('post_id');
+        $comment->content = $request->content;
+        $comment->date = date('Y/m/d - H:i:s');
+        $comment->save();
+        Session::flash('alert-info', 'Comment succe..!');
+        return redirect()->back();
+    }
+    public function destroyComment(int $id)
+    {
+        DB::delete("delete from comments where id='$id'");
+        Session::flash('alert-info', 'Delete comment succe..!');
+        return redirect()->back();
+    }
     /**
      * Update the specified resource in storage.
      */

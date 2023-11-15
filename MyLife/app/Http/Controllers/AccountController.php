@@ -33,20 +33,21 @@ class AccountController extends Controller
                 if ($test != null) {
                     Session::put('id', head($test)->id);
                     Session::put('pwd', head($test)->pwd);
-                    Session::put('img', head($test)->img);
+                    Session::put('avt', head($test)->avt);
                     Session::put('username', head($test)->username);
-
+                    Session::put('status', head($test)->status);
                 } else {
                     Session::put('id', head($test1)->id);
                     Session::put('pwd', head($test1)->pwd);
-                    Session::put('img', head($test1)->img);
+                    Session::put('avt', head($test1)->avt);
                     Session::put('username', head($test1)->username);
+                    Session::put('status', head($test1)->status);
                 }
                 Session::flash('alert-info', 'LogIn success..!');
-                return redirect()->back()->with('alert', 44444444444444);
+                return redirect()->route('user.home');
             } else {
                 Session::flash('alert-info', 'Account does not exist..!');
-                return redirect()->back()->with('alert', 44444444444444);
+                return redirect()->back();
             }
         }
 
@@ -72,10 +73,10 @@ class AccountController extends Controller
             $user->phone = $request->phone;
             $user->status = 1;
 
-            if ($request->hasFile('img')) {
+            if ($request->hasFile('avt')) {
                 $file = $request->img;
                 // Lưu tên hình vào column sp_hinh
-                $user->img = $file->hashName();
+                $user->avt = $file->hashName();
                 $user->save();
                 // Chép file vào thư mục "storate/public/img"
                 $fileSaved = $file->storeAs('public/img', $user->img);
