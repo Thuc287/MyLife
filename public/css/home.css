@@ -1,0 +1,158 @@
+body {
+  background-color: #f0f2f5;
+  color: #1c1e21;
+  position: relative;
+}
+
+a {
+  text-decoration: none;
+  color: #65676b;
+
+}
+
+header {
+  background-color: #fff;
+  height: 55px;
+  margin-bottom: 3px;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+}
+
+.myAccount {
+  position: fixed;
+  left: 20px;
+  top: 70px
+}
+
+.container {
+  padding-top: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* search */
+.box {
+  width: 40%;
+  max-width: 500px;
+}
+
+.sbox {
+  position: relative;
+}
+
+.stext {
+  width: 70%;
+  height: 40px;
+  background: #ebebef;
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: #000000;
+  padding-left: 20px;
+  border-radius: 20px;
+}
+
+.fa-search {
+  position: absolute;
+  z-index: 1;
+  color: #fff;
+}
+
+/* menu */
+.menu {
+  align-items: center;
+}
+
+/* content */
+.content {
+  display: flex;
+  justify-content: center;
+  padding-top: 55px;
+}
+
+.posts {
+  max-width: 700px;
+}
+
+.post,
+.createPost {
+  margin-top: 17px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.headerPost,
+.headercreatePost {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px 8px 15px;
+}
+
+.infoPost {
+  padding-left: 8px;
+}
+
+.fullname {
+  font-weight: 600;
+}
+
+.date {
+  font-size: 13px;
+  color: #65676b;
+}
+
+.captionPost {
+  font-size: 15px;
+  padding: 0px 15px 10px 15px;
+}
+
+.footerPost {
+  padding: 10px 20px 10px 20px;
+  color: #65676b;
+}
+
+.footerPost1 {
+  display: flex;
+  justify-content: space-between;
+  height: 18px;
+  padding: 0px 20px 0px 20px;
+}
+
+.footerPost2 {
+  display: flex;
+  justify-content: space-around;
+  height: 15px;
+  align-items: center;
+  padding-bottom: 5px;
+}
+
+.createPost_status {
+  color: #65676b;
+  background-color: #f0f2f5;
+  width: 100%;
+  height: 40px;
+  border-radius: 20px;
+  margin-left: 10px;
+  padding-top: 7px;
+}
+
+.createPost_img {
+  color: #65676b;
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.createPost hr {
+  margin: 5px 20px 10px 20px;
+}
+
+#createPost {
+  width: 100%;
+}
