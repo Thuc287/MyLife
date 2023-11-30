@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Comment;
+use App\Models\Like;
 
 class UserController extends Controller
 {
@@ -15,7 +16,8 @@ class UserController extends Controller
         $posts = DB::table('posts')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->where('posts.status', 0)
-            ->select('users.avt', 'users.username', 'posts.caption', 'posts.img', 'posts.date', 'posts.views')
+            ->orderByDesc('date','ASC')
+            ->select('users.avt', 'users.username', 'users.fullname', 'posts.caption', 'posts.img', 'posts.id', 'posts.date', 'posts.likes', 'posts.comments')
             ->get();
         return view('home')->with(['posts' => $posts, 'layout' => 'Layout.user']);
     }
@@ -44,6 +46,29 @@ class UserController extends Controller
         $comment->date = date('Y/m/d - H:i:s');
         $comment->save();
         Session::flash('alert-info', 'Comment succe..!');
+        return redirect()->back();
+    }
+    public function like(int $post_id)
+    {
+        $user_id = Session::get('id');
+        $likes = DB::select("select * from likes where post_id='$post_id' and user_id='$user_id'");
+        if ($likes == null) {
+            $like = new Like();
+            $like->user_id = Session::get('id');
+            $like->post_id = $post_id;
+            $like->save();
+            $likes = DB::select("select likes from posts where id='$post_id'");
+            $like = head($likes)->likes + 1;
+            echo ($like);
+            DB::update("update posts set likes='$like' where id='$post_id'");
+        }else{
+                DB::delete("delete from likes where post_id='$post_id' and user_id='$user_id'");
+                $likes = DB::select("select likes from posts where id='$post_id'");
+                $like = head($likes)->likes - 1;
+                echo ($like);
+                DB::update("update posts set likes='$like' where id='$post_id'");
+        }
+
         return redirect()->back();
     }
     public function destroyComment(int $id)

@@ -16,6 +16,8 @@ Route::post('/signUp',  [AccountController::class, 'signUp'])->name('signUp');
 //user
 Route::get('/user',  [UserController::class, 'home'])->name('user.home');
 Route::get('/user/myHome',  [UserController::class, 'MyHome'])->name('user.myHome');
+Route::get('/user/like/{id}',  [UserController::class, 'like'])->name('user.like');
+
 
 
 Route::post('/createPost',  [PostController::class, 'createPost'])->name('createPost');
