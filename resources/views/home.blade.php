@@ -87,7 +87,7 @@
   </div>
   <div class="comment">
     <i class="fa-regular fa-comment"style="font-size:20px"></i>&nbsp
-    Bình luận..ff
+    Bình luận..ffj
     </div>
 </div>
   </div>
