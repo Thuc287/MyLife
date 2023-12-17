@@ -21,3 +21,4 @@ Route::get('/like/{post_id}',  [UserController::class, 'like'])->name('user.like
 
 
 Route::post('/createPost',  [PostController::class, 'createPost'])->name('createPost');
+Route::get('/destroyPost/{post_id}',  [PostController::class, 'destroyPost'])->name('destroyPost');

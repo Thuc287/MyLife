@@ -17,7 +17,7 @@ class UserController extends Controller
         $posts = DB::table('posts')
             ->join('users', 'posts.user_id', '=', 'users.user_id')
             ->where('posts.status', 0)
-            ->orderByDesc('date', 'ASC')
+            ->orderByDesc('post_id', 'ASC')
             ->select('users.avt', 'users.username', 'users.fullname', 'posts.caption', 'posts.img', 'posts.post_id', 'posts.date', 'posts.likes', 'posts.comments')
             ->get();
         $likes = DB::table('likes')

@@ -15,7 +15,7 @@ class GuestController extends Controller
         //  FROM posts, users where posts.'user_id'=users.'id' ");
         $posts = DB::table('posts')
         ->join('users','posts.user_id','=','users.user_id')
-        ->orderByDesc('date','ASC')
+        ->orderByDesc('post_id','ASC')
         ->select('users.avt','users.username','users.fullname','posts.caption','posts.post_id','posts.img','posts.date','posts.likes','posts.comments')
         ->get();
         // echo($posts);

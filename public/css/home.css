@@ -4,7 +4,8 @@ body {
   position: relative;
 }
 
-a, button{
+a,
+button {
   text-decoration: none;
   color: #65676b;
 
@@ -77,8 +78,7 @@ header {
   max-width: 700px;
 }
 
-.post,
-.createPost {
+.post {
   margin-top: 17px;
   width: 100%;
   background-color: #fff;
@@ -108,6 +108,18 @@ header {
 .captionPost {
   font-size: 15px;
   padding: 0px 15px 10px 15px;
+}
+
+.imgPost {
+  background-color: rgb(238, 238, 238);
+  display: flex;
+  justify-content: center;
+}
+
+.imgPost img {
+  width: auto;
+  max-height: 600px;
+  max-width: 100%
 }
 
 .footerPost {
@@ -154,5 +166,11 @@ header {
 }
 
 #createPost {
+  margin-top: 17px;
   width: 100%;
+}
+.createPost {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
 }

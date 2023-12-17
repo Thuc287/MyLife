@@ -9,7 +9,7 @@ use Throwable;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Like;
-
+use File;
 
 class PostController extends Controller
 {
@@ -40,7 +40,7 @@ class PostController extends Controller
                 return redirect()->back();
             }
              $post = new Post();
-            $post->user_id = Session::get('id');
+            $post->user_id = Session::get('user_id');
             $post->caption = $request->caption;
             $post->status = 0;
             $post->date = date('Y/m/d');
@@ -67,11 +67,14 @@ class PostController extends Controller
     }
     public function destroyPost(int $post_id)
     {
-        DB::delete("delete from posts where post_id='$post_id'");
-        DB::delete("delete from comments where post_id='$post_id'");
-        DB::delete("delete from likes where post_id='$post_id'");
+        $imgs= DB::select("select * from posts Where post_id='$post_id'");
+        $img=head($imgs)->img;
 
-        Session::flash('alert-info', 'Delete post succe..!');
-        return redirect()->back();
+       $img->delete('public/img',$img);
+        // DB::delete("delete from posts where post_id='$post_id'");
+        // DB::delete("delete from comments where post_id='$post_id'");
+        // DB::delete("delete from likes where post_id='$post_id'");
+        // Session::flash('alert-info', 'Delete post succe..!');
+        // return redirect()->back();
     }
 }

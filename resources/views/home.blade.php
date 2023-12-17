@@ -4,7 +4,7 @@
 
   <div class="posts">
    @if (Session::get('avt'))
-    <button type="button" id="createPost" class="btn btn-group-vertical" data-bs-toggle="modal" data-bs-target="#postUp">
+    <a  id="createPost" class="btn btn-group-vertical" data-bs-toggle="modal" data-bs-target="#postUp">
      <div class="createPost">
 
       <div class="headercreatePost">
@@ -24,7 +24,7 @@
       </div>
 
      </div>
-    </button>
+    </a>
 
     {{-- fixed --}}
     <div class="myAccount">
@@ -67,8 +67,7 @@
 
      </div>
      <div class="imgPost">
-      <img src="{{ asset('storage/img/' . $post->img) }}" style="width: 100%; max-height:700px" alt='img'>
-
+      <img src="{{ asset('storage/img/' . $post->img) }}" alt='img'>
      </div>
      <div class="footerPost">
       <div class="footerPost1">
