@@ -1,99 +1,113 @@
 @extends($layout)
 @section('content')
-<div class="content">
+ <div class="content">
 
   <div class="posts">
-    @if (Session::get('avt'))
+   @if (Session::get('avt'))
     <button type="button" id="createPost" class="btn btn-group-vertical" data-bs-toggle="modal" data-bs-target="#postUp">
-    <div class="createPost">
+     <div class="createPost">
 
       <div class="headercreatePost">
 
-        <img src="{{ asset('storage/img/'.Session::get('avt')) }}" style="width: 39px;height: 39px;border-radius: 50% " alt='avt'>
+       <img src="{{ asset('storage/img/' . Session::get('avt')) }}" style="width: 39px;height: 39px;border-radius: 50% "
+        alt='avt'>
 
-        <div class="createPost_status">
-          {{ Session::get('fullname') }} ơi, bạn đang nghĩ gì thế ?
-        </div>
+       <div class="createPost_status">
+        {{ Session::get('fullname') }} ơi, bạn đang nghĩ gì thế ?
+       </div>
 
       </div>
-      <hr/>
+      <hr />
       <div class="createPost_img">
-        <i class="fa-solid fa-images" style="color:rgb(82, 202, 82) ;font-size:25px"></i>&nbsp
-        Ảnh
+       <i class="fa-solid fa-images" style="color:rgb(82, 202, 82) ;font-size:25px"></i>&nbsp
+       Ảnh
       </div>
 
-        </div>
+     </div>
     </button>
 
-     {{-- fixed --}}
+    {{-- fixed --}}
     <div class="myAccount">
-      <div class="headerPost">
-        {{-- <img alt="{{ asset('storage/img/'.$post->img) }}"> --}}
-        <a href="{{ route('user.myHome') }}">
-          <img src="{{ asset('storage/img/'.Session::get('avt')) }}" style="width: 39px;height: 39px;border-radius: 50% " alt='avt'>
-        </a>&nbsp&nbsp
-        <div class="infoPost">
-          <div class="fullname">
+     <div class="headerPost">
+      {{-- <img alt="{{ asset('storage/img/'.$post->img) }}"> --}}
+      <a href="{{ route('user.myHome') }}">
+       <img src="{{ asset('storage/img/' . Session::get('avt')) }}" style="width: 39px;height: 39px;border-radius: 50% "
+        alt='avt'>
+      </a>&nbsp&nbsp
+      <div class="infoPost">
+       <div class="fullname">
         {{ Session::get('fullname') }}
-          </div>
-        </div>
+       </div>
       </div>
+     </div>
     </div>
-    @endif
+   @endif
 
-@foreach ($posts as $post)
+   @foreach ($posts as $post)
+    <div class="post">
+     <div class="headerPost">
+      {{-- <img alt="{{ asset('storage/img/'.$post->img) }}"> --}}
+      <a href="{{ route('user.myHome') }}">
+       <img src="{{ asset('storage/img/' . $post->avt) }}" style="width: 39px;height: 39px;border-radius: 50% "
+        alt='avt'>
+      </a>
+      <div class="infoPost">
+       <div class="fullname">
 
-  <div class="post">
-<div class="headerPost">
-{{-- <img alt="{{ asset('storage/img/'.$post->img) }}"> --}}
-<a href="{{ route('user.myHome') }}">
-  <img src="{{ asset('storage/img/'.$post->avt) }}" style="width: 39px;height: 39px;border-radius: 50% " alt='avt'>
-</a>
-<div class="infoPost">
-  <div class="fullname">
+        {{ $post->fullname }}
+       </div>
+       <div class="date">
+        {{ $post->date }}
 
-{{ $post->fullname }}
-  </div>
-  <div class="date">
-{{ $post->date }}
+       </div>
+      </div>
+     </div>
+     <div class="captionPost">
+      {{ $post->caption }}
 
-  </div>
-</div>
-</div>
-<div class="captionPost">
-  {{ $post->caption }}
+     </div>
+     <div class="imgPost">
+      <img src="{{ asset('storage/img/' . $post->img) }}" style="width: 100%; max-height:700px" alt='img'>
 
-</div>
-<div class="imgPost">
-  <img src="{{ asset('storage/img/'.$post->img) }}" style="width: 100%; max-height:700px" alt='img'>
+     </div>
+     <div class="footerPost">
+      <div class="footerPost1">
+       <div class="likes">
+        <i class="fa-solid fa-heart" style="color:rgb(255, 48, 48); font-size:18px"></i>&nbsp
+        @if (isset($post->liker))
+         <span id="{{ $post->post_id * (-1)  }}">Bạn và {{ $post->likes - 1 }} người khác</span>
+        @else
+         <span id="{{ $post->post_id * (-1)  }}">{{ $post->likes }}</span>
+        @endif
+       </div>
+       <div class="comments">
+        {{ $post->likes }} bình luận
+       </div>
+      </div>
+      <hr />
+      <div class="footerPost2">
+       <div class="like">
 
-</div>
-<div class="footerPost">
-<div class="footerPost1">
-  <div class="likes">
-  <i class="fa-solid fa-heart" style="color:rgb(255, 48, 48); font-size:18px"></i>&nbsp
-  {{ $post->likes }}
-  </div>
-<div class="comments">
-  {{ $post->likes }} bình luận
-</div>
-</div>
-<hr/>
-<div class="footerPost2">
-  <div class="like">
-    <a href="user/like/{{ $post->id }}">
-  <i class="fa-regular fa-thumbs-up" style="font-size:20px"></i>&nbsp
-  Thích </a>
-  </div>
-  <div class="comment">
-    <i class="fa-regular fa-comment"style="font-size:20px"></i>&nbsp
-    Bình luận
+        @if (isset($post->liker))
+         <a onclick="like({{ $post->post_id }},{{ $post->likes }},1)" id="{{ $post->post_id }}" style="color: rgb(245, 58, 58)"
+          class="like1" href="{{ route('user.like', ['post_id' => $post->post_id]) }}">
+          <i class="fa-regular fa-thumbs-up" style="font-size:20px"></i>&nbsp
+          Thích </a>
+        @else
+         <a onclick="like({{ $post->post_id }},{{ $post->likes }},0)" id="{{ $post->post_id }}" class="like1"
+          href="{{ route('user.like', ['post_id' => $post->post_id]) }}">
+          <i class="fa-regular fa-thumbs-up" style="font-size:20px"></i>&nbsp
+          Thích </a>
+        @endif
+       </div>
+       <div class="comment">
+        <i class="fa-regular fa-comment"style="font-size:20px"></i>&nbsp
+        Bình luận
+       </div>
+      </div>
+     </div>
     </div>
-</div>
+   @endforeach
   </div>
-  </div>
-
-@endforeach
-</div>
-</div>
+ </div>
 @endsection

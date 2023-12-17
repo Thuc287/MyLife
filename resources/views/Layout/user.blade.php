@@ -8,7 +8,7 @@
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
  <link rel="stylesheet" href="{{ asset('css/home.css') }}">
  <title>My-Life</title>
@@ -88,15 +88,16 @@
     </div>
 
     <div class="headerPost">
-      {{-- <img alt="{{ asset('storage/img/'.$post->img) }}"> --}}
-      <a href="{{ route('user.myHome') }}">
-        <img src="{{ asset('storage/img/'.Session::get('avt')) }}" style="width: 39px;height: 39px;border-radius: 50% " alt='avt'>
-      </a>
-      <div class="infoPost">
-        <div class="username">
-      {{ Session::get('fullname') }}
-        </div>
+     {{-- <img alt="{{ asset('storage/img/'.$post->img) }}"> --}}
+     <a href="{{ route('user.myHome') }}">
+      <img src="{{ asset('storage/img/' . Session::get('avt')) }}" style="width: 39px;height: 39px;border-radius: 50% "
+       alt='avt'>
+     </a>
+     <div class="infoPost">
+      <div class="username">
+       {{ Session::get('fullname') }}
       </div>
+     </div>
     </div>
     <!-- Modal body -->
     <div class="modal-body">
@@ -125,6 +126,40 @@
  {{-- Modal --}}
 
 </body>
+<script type="text/javascript">
+ $(document).ready(function() {
+  $('a.like1').click(function() {
+   var url = this.href;
+   $(document).load(url);
+   //  window.open(location.reload(true))
+   return false;
+  })
+ })
 
+ function like(x, y, z) {
+  console.log(1111111);
+  var color = document.getElementById(x);
+  var like = document.getElementById(-x);
+  if (color.style.color == 'rgb(245, 58, 58)' && z == 1) {
+   color.style.color = '#65676b';
+   like.innerHTML = y - 1;
+  } else if (color.style.color == 'rgb(245, 58, 58)' && z != 1) {
+   color.style.color = '#65676b';
+   like.innerHTML = y;
+  } else if (color.style.color != 'rgb(245, 58, 58)' && z != 1) {
+   color.style.color = 'rgb(245, 58, 58)';
+   like.innerHTML = 'Bạn và ' + y + ' người khác';
+  }else if (color.style.color != 'rgb(245, 58, 58)' && z == 1) {
+   color.style.color = 'rgb(245, 58, 58)';
+   like.innerHTML = 'Bạn và ' + (y-1) + ' người khác';
+  }else if (color.style.color == 'rgb(245, 58, 58)') {
+   color.style.color = '#65676b';
+   like.innerHTML = y;
+  }else if (z ==1) {
+   color.style.color = '#65676b';
+   like.innerHTML = y-1;
+  }
+ }
+</script>
 
 </html>

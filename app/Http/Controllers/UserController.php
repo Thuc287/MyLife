@@ -13,13 +13,24 @@ class UserController extends Controller
 
     public function home()
     {
+        $user_id = Session::get('user_id');
         $posts = DB::table('posts')
-            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->join('users', 'posts.user_id', '=', 'users.user_id')
             ->where('posts.status', 0)
-            ->orderByDesc('date','ASC')
-            ->select('users.avt', 'users.username', 'users.fullname', 'posts.caption', 'posts.img', 'posts.id', 'posts.date', 'posts.likes', 'posts.comments')
+            ->orderByDesc('date', 'ASC')
+            ->select('users.avt', 'users.username', 'users.fullname', 'posts.caption', 'posts.img', 'posts.post_id', 'posts.date', 'posts.likes', 'posts.comments')
             ->get();
-        return view('home')->with(['posts' => $posts, 'layout' => 'Layout.user']);
+        $likes = DB::table('likes')
+            ->where('user_id', $user_id)
+            ->get();
+        foreach ($posts as $post) {
+            foreach ($likes as $like) {
+                if ($like->post_id == $post->post_id) {
+                    $post->liker = 1;
+                }
+            }
+        }
+        return view('home')->with(['posts' => $posts, 'likes' => $likes, 'layout' => 'Layout.user']);
     }
 
     public function MyHome()
@@ -50,26 +61,21 @@ class UserController extends Controller
     }
     public function like(int $post_id)
     {
-        $user_id = Session::get('id');
+        $user_id = Session::get('user_id');
         $likes = DB::select("select * from likes where post_id='$post_id' and user_id='$user_id'");
         if ($likes == null) {
             $like = new Like();
-            $like->user_id = Session::get('id');
+            $like->user_id = Session::get('user_id');
             $like->post_id = $post_id;
             $like->save();
-            $likes = DB::select("select likes from posts where id='$post_id'");
-            $like = head($likes)->likes + 1;
-            echo ($like);
-            DB::update("update posts set likes='$like' where id='$post_id'");
-        }else{
-                DB::delete("delete from likes where post_id='$post_id' and user_id='$user_id'");
-                $likes = DB::select("select likes from posts where id='$post_id'");
-                $like = head($likes)->likes - 1;
-                echo ($like);
-                DB::update("update posts set likes='$like' where id='$post_id'");
+            DB::update("UPDATE posts set likes=likes + 1  where post_id='$post_id'");
+
+        } else {
+            DB::delete("delete from likes where post_id='$post_id' and user_id='$user_id'");
+            DB::update("UPDATE posts set likes=likes - 1 where post_id='$post_id'");
         }
 
-        return redirect()->back();
+        // return redirect()->back();
     }
     public function destroyComment(int $id)
     {

@@ -10,13 +10,13 @@ use App\Http\Controllers\PostController;
 
 //guest
 Route::get('/',  [GuestController::class, 'home'])->name('home');
-Route::post('/signIn',  [AccountController::class, 'signIn'])->name('signIn');
-Route::post('/signUp',  [AccountController::class, 'signUp'])->name('signUp');
+Route::post('signIn',  [AccountController::class, 'signIn'])->name('signIn');
+Route::post('signUp',  [AccountController::class, 'signUp'])->name('signUp');
 
 //user
-Route::get('/user',  [UserController::class, 'home'])->name('user.home');
-Route::get('/user/myHome',  [UserController::class, 'MyHome'])->name('user.myHome');
-Route::get('/user/like/{id}',  [UserController::class, 'like'])->name('user.like');
+Route::get('user',  [UserController::class, 'home'])->name('user.home');
+Route::get('user/myHome',  [UserController::class, 'MyHome'])->name('user.myHome');
+Route::get('/like/{post_id}',  [UserController::class, 'like'])->name('user.like');
 
 
 

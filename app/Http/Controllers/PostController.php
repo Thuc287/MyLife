@@ -20,7 +20,7 @@ class PostController extends Controller
     {
         $post_id=$request->post_id;
         $posts = DB::select("SELECT posts.'id', posts.'caption',posts.'img', posts.'user_id',users.'img', users.'username'
-         FROM posts, users where posts.'user_id'=users.'id' and posts.'id'='$post_id' ");
+         FROM posts, users where posts.'user_id'=users.'user_id' and posts.'post_id'='$post_id' ");
         $post=head($posts);
         $comments= DB::select("select * from comments where post_id='$post_id'");
         Session::put("post_id",$post_id);
@@ -67,8 +67,10 @@ class PostController extends Controller
     }
     public function destroyPost(int $post_id)
     {
-        DB::delete("delete from posts where id='$post_id'");
+        DB::delete("delete from posts where post_id='$post_id'");
         DB::delete("delete from comments where post_id='$post_id'");
+        DB::delete("delete from likes where post_id='$post_id'");
+
         Session::flash('alert-info', 'Delete post succe..!');
         return redirect()->back();
     }

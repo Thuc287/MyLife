@@ -27,14 +27,14 @@ class AccountController extends Controller
 
             if ($test != null or $test1 != null) {
                 if ($test != null) {
-                    Session::put('id', head($test)->id);
+                    Session::put('user_id', head($test)->user_id);
                     Session::put('pwd', head($test)->pwd);
                     Session::put('avt', head($test)->avt);
                     Session::put('username', head($test)->username);
                     Session::put('fullname', head($test)->fullname);
                     Session::put('status', head($test)->status);
                 } else {
-                    Session::put('id', head($test1)->id);
+                    Session::put('user_id', head($test1)->user_id);
                     Session::put('pwd', head($test1)->pwd);
                     Session::put('avt', head($test1)->avt);
                     Session::put('username', head($test1)->username);
