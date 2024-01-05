@@ -159,10 +159,10 @@
         required>
       </div>
       <div class="mb-3 mt-3">
-        <label for="fullname" class="form-label">Fullname:</label>
-        <input type="text" class="form-control" id="fullname" placeholder="Enter fullname" name="fullname"
-         required>
-       </div>
+       <label for="fullname" class="form-label">Fullname:</label>
+       <input type="text" class="form-control" id="fullname" placeholder="Enter fullname" name="fullname"
+        required>
+      </div>
       <div class="mb-3">
        <label for="phone" class="form-label">Phone:</label>
        <input pattern="(\+84|0)\d{9,10}" type="phone" class="form-control" id="phone"
@@ -200,6 +200,9 @@
  {{-- modal --}}
 
 </body>
+<script type="text/javascript">
 
 
-</html>
+
+ 
+ /html>

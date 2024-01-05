@@ -75,7 +75,8 @@ header {
 }
 
 .posts {
-  max-width: 700px;
+  max-width: 600px;
+  min-width: 500px;
 }
 
 .post {
@@ -89,6 +90,7 @@ header {
 .headercreatePost {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 15px 8px 15px;
 }
 
@@ -174,3 +176,7 @@ header {
   background-color: #fff;
   border-radius: 10px;
 }
+.modal-body{
+  padding-top: 0px;
+}
+

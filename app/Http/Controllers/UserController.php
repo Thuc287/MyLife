@@ -30,13 +30,29 @@ class UserController extends Controller
                 }
             }
         }
-        return view('home')->with(['posts' => $posts, 'likes' => $likes, 'layout' => 'Layout.user']);
+        return view('home')->with(['posts' => $posts, 'layout' => 'Layout.user']);
     }
 
-    public function MyHome()
+    public function myHome()
     {
-        $user_id = Session::get('id');
-        $posts = DB::select("select * from posts where user_id='$user_id");
+        $user_id = Session::get('user_id');
+        $posts = DB::table('posts')
+            ->join('users', 'posts.user_id', '=', 'users.user_id')
+            ->where('posts.status', 0)
+            ->where('posts.user_id',$user_id)
+            ->orderByDesc('post_id', 'ASC')
+            ->select('users.avt', 'users.username', 'users.fullname', 'posts.caption', 'posts.img', 'posts.post_id', 'posts.date', 'posts.likes', 'posts.comments')
+            ->get();
+        $likes = DB::table('likes')
+            ->where('user_id', $user_id)
+            ->get();
+        foreach ($posts as $post) {
+            foreach ($likes as $like) {
+                if ($like->post_id == $post->post_id) {
+                    $post->liker = 1;
+                }
+            }
+        }
         return view('home')->with(['posts' => $posts, 'layout' => 'Layout.user']);
     }
     public function UserHome(Request $request)

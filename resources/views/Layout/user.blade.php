@@ -86,21 +86,12 @@
      <h4 class="modal-title">Tạo bài viết</h4>
      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
-
-    <div class="headerPost">
-     {{-- <img alt="{{ asset('storage/img/'.$post->img) }}"> --}}
-     <a href="{{ route('user.myHome') }}">
-      <img src="{{ asset('storage/img/' . Session::get('avt')) }}" style="width: 39px;height: 39px;border-radius: 50% "
-       alt='avt'>
-     </a>
-     <div class="infoPost">
-      <div class="username">
-       {{ Session::get('fullname') }}
-      </div>
-     </div>
-    </div>
     <!-- Modal body -->
     <div class="modal-body">
+      <div class="headerPost" style="justify-content: left">
+        <img src="{{ asset('storage/img/' . Session::get('avt')) }}" style="width: 39px;height: 39px;border-radius: 50% " alt='avt'>
+        &nbsp&nbsp {{ Session::get('fullname') }}
+      </div>
      <form method="post" action="/createPost" enctype="multipart/form-data">
       {{ csrf_field() }}
       <div class="mb-3 mt-3">
@@ -127,13 +118,23 @@
 
 </body>
 <script type="text/javascript">
+
  $(document).ready(function() {
+
   $('a.like1').click(function() {
    var url = this.href;
    $(document).load(url);
-   //  window.open(location.reload(true))
    return false;
   })
+
+  $('a.destroy').click(function() {
+   var url = this.href;
+   $(document).load(url);
+   window.open(location.reload(true))
+   return false;
+  })
+
+  
  })
 
  function like(x, y, z) {
@@ -158,6 +159,10 @@
    color.style.color = '#65676b';
    like.innerHTML = y-1;
   }
+ }
+ function destroy(x) {
+  var div = document.getElementById(x);
+     div.style.display='none';
  }
 </script>
 
